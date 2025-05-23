@@ -22,7 +22,8 @@ else:
 
 def predict_emails(df, email_column):
     X = vectorizer.transform(df[email_column])    
-    df["Prediction"] = "Spam" if model.predict(X) == 1 else "Non-Spam"
+    df["Prediction"] = model.predict(X)
+    df["Prediction"] = df["Prediction"].apply(lambda x: "Spam" if x == 1 else "Non-Spam")
     return df
 
 uploaded_file = st.file_uploader("Upload Excel file", type=["xlsx", "xls"])
